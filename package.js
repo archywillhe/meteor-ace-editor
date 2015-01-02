@@ -2,8 +2,8 @@ var fs = Npm.require("fs");
 
 Package.describe({
   name: 'arch:ace-editor',
-  summary: 'A simple package that intergrates Ace editor with your Meteor 1.0 app.',
-  version: '1.0.0',
+  summary: 'Integrating Ace editor with Meteor since 2015',
+  version: '1.0.2',
   git: 'https://github.com/0a-/meteor-ace-editor'
 });
 
