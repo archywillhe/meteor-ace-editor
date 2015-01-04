@@ -3,12 +3,13 @@ var fs = Npm.require("fs");
 Package.describe({
   name: 'arch:ace-editor',
   summary: 'Integrating Ace editor with Meteor since 2015',
-  version: '1.0.2',
+  version: '1.1.0',
   git: 'https://github.com/0a-/meteor-ace-editor'
 });
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.2.1');
+  api.use('tracker', 'client');
   var files = fs.readdirSync('ace-builds/src-noconflict');
   files.forEach(function(file){
     if(file.substr(-3)===".js"){

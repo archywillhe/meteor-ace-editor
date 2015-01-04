@@ -8,10 +8,13 @@ Tinytest.add('wait ace to be loaded', function (test) {
 });
 Tinytest.addAsync('ace is loaded', function (test, completed) {
     $("body").append("<pre id='editor' style='display:none'/>");
-    var ace = AceEditor.instance("editor",{
+    var ace = AceEditor.instance("editor",
+    {
         theme:"dawn",
         mode:"html"
-    },function(editor){
+    },
+    function(editor){
+        //this is passed to the cb arg
         test.equal(ace, "ace is being loaded");
         ace = AceEditor.instance();
         test.equal(ace.loaded,true);
@@ -19,4 +22,17 @@ Tinytest.addAsync('ace is loaded', function (test, completed) {
         test.equal(editor.getTheme(),"ace/theme/dawn");
         completed();
     });
+});
+
+Tinytest.addAsync('testTracker', function (test,completed) {
+    AceEditor.unloadInstance();  
+    $("body").append("<pre id='editor' style='display:none'/>");
+    Tracker.autorun(function (e) {
+       var editor = AceEditor.instance("editor");
+       console.log(editor);
+       if(editor.loaded===true){
+         e.stop();
+         completed();
+       }
+     });
 });

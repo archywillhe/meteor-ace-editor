@@ -1,6 +1,7 @@
 var acePath = "/packages/arch_ace-editor/ace-builds/src-noconflict/";
+var StateOfAceEditor = new Tracker.Dependency;
 AceEditor = (function() {
-    var instance_load, instance, callback = function(){};
+    var instance, instance_initialized,callback = new Function();
     var setUp = function(setting,cb){
         if(setting instanceof Object && instance !==undefined){
             instance.setTheme("ace/theme/"+setting.theme);
@@ -11,9 +12,16 @@ AceEditor = (function() {
         }
     },
     _static = {
+        unloadInstance: function(){
+            instance.loaded = undefined;
+            instance = undefined;
+            instance_initialized = undefined;
+            delete window.ace;
+        },
         instance: function(name,setting,cb) {
-            //overwrite the callback everytime .instance is called.
+            StateOfAceEditor.depend();
             callback = function(){
+                 //makes the actual callback using name, setting and cb
                 if(name!==undefined){
                     try{ 
                         instance = ace.edit(name);
@@ -24,19 +32,20 @@ AceEditor = (function() {
                     }
                 }
             };
-            if (instance_load === undefined) {
+            if (instance_initialized === undefined) {
                 $.getScript(acePath+"ace.js")
                 .done(function(){
                     ace.config.set("modePath", acePath);
                     ace.config.set("themePath", acePath);
                     ace.config.set("workerPath", acePath);
                     ace.config.set("basePath", acePath);
+                    StateOfAceEditor.changed();
                     callback();
                 })
                 .fail(function(jqxhr, settings, exception){
                     console.log(jqxhr.responseText,exception.message);
                 });
-                instance_load = true;
+                instance_initialized = true;
                 return "loading ace";
             }else{
                 if(instance ===undefined){

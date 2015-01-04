@@ -26,16 +26,16 @@ AceEditor.instance("archy",null,function(editor){
 ```
 
 
-<!--Assigning `AceEditor.instance("archy")` to a variable with Tracker.autorun:-->
-<!--```javascript-->
-<!--Tracker.autorun(function (e) {-->
-<!--  editor = AceEditor.instance("archy");-->
-<!--  if(editor.loaded!==undefined){-->
-<!--  e.stop();-->
-<!--  editor.insert("Live long and prosper.");-->
-<!--  }-->
-<!--});-->
-<!--```-->
+Assigning `AceEditor.instance("archy")` to a variable with Tracker.autorun:
+```javascript
+Tracker.autorun(function (e) {
+  editor = AceEditor.instance("archy");
+  if(editor.loaded!==undefined){
+  e.stop();
+  editor.insert("Live long and prosper.");
+  }
+});
+```
 
 To learn more about Ace Editor, you can read <a href="http://ace.c9.io/#nav=howto">the how-to guide</a> on their website.
 
