@@ -1,5 +1,42 @@
+var loadScript = function(script, successfulCB, failCB) {
+    var request;
+    if (typeof XMLHttpRequest === 'function'){
+        request = new XMLHttpRequest();
+    } else {
+        try {
+            request=new ActiveXObject("Microsoft.request");
+        } catch(e) {
+            console.log("even ActiveXObject('Microsoft.request') doesn't work :(")
+            return;
+        }
+    }
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            try {
+                (function( code ) {
+                    window.eval.call( window, code );
+                })( request.response );
+            } catch(e) {
+                console.log(script +" is loaded but can't be eval(), man!");
+            } finally{
+                if ( typeof successfulCB === 'function' ) {
+                    successfulCB();
+                }
+            }
+        }else if (request.status == 400){
+            console.log("failed to load "+script);
+            if ( typeof failCB === 'function' ) {
+                failCB();
+            }
+        }
+    }
+    request.open("GET", script , true);
+    request.send();
+}
+
 var acePath = "/packages/arch_ace-editor/ace-builds/src-noconflict/";
 var StateOfAceEditor = new Tracker.Dependency;
+
 AceEditor = (function() {
     var instance, instance_initialized,callback = new Function();
     var setUp = function(setting,cb){
@@ -33,17 +70,18 @@ AceEditor = (function() {
                 }
             };
             if (instance_initialized === undefined) {
-                $.getScript(acePath+"ace.js")
-                .done(function(){
+                loadScript(acePath+"ace.js",
+                function(){
+                    var ace = window.ace
                     ace.config.set("modePath", acePath);
                     ace.config.set("themePath", acePath);
                     ace.config.set("workerPath", acePath);
                     ace.config.set("basePath", acePath);
                     StateOfAceEditor.changed();
                     callback();
-                })
-                .fail(function(jqxhr, settings, exception){
-                    console.log(jqxhr.responseText,exception.message);
+                },
+                function(request){
+                    console.log(request);
                 });
                 instance_initialized = true;
                 return "loading ace";
