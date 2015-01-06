@@ -1,6 +1,6 @@
 #Meteor Ace Editor 
 
-A simple package that integrates <a href="http://ace.c9.io/">Ace editor</a> with your Meteor 1.0 app.
+A simple package that asynchronously loads <a href="http://ace.c9.io/">Ace editor</a> to a Meteor app only when it is needed.
 
 #QuickStart
 Add it to your Meteor project
@@ -8,13 +8,16 @@ Add it to your Meteor project
 meteor add arch:ace-editor
 ```
 
-Let's say you have a `<pre id='archy'></pre>`, and you want to make it into an ace editor, this is all you need to do:
+Let's say you have a `<pre id='archy'></pre>`, and now you want to embed Ace and turn the DOM element into an Ace editor, this is all you need to do:
 ```javascript
 var ace = AceEditor.instance("archy",{
     theme:"dawn", 
     mode:"html"
 });
 ```
+
+(Calling `AceEditor.instance()` multiple times would not load the Ace script more than one time. It only loads the script the first time you call it.)
+
 
 #More on working with Ace Editor in Meteor
 Using a callback:
@@ -36,6 +39,8 @@ Tracker.autorun(function (e) {
   }
 });
 ```
+
+`.autorun` is necessary only when the Ace script has not been loaded. 
 
 To learn more about Ace Editor, you can read <a href="http://ace.c9.io/#nav=howto">the how-to guide</a> on their website.
 
