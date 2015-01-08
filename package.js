@@ -16,7 +16,7 @@ Package.onUse(function(api) {
         api.add_files("ace-builds/src-noconflict/"+file, "client", {isAsset: true});
     }
   });
-  api.addFiles('init-ace.js','client');
+  api.addFiles('core.js','client');
   api.export('AceEditor','client');
 });
 
