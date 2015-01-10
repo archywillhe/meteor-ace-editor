@@ -1,6 +1,6 @@
 var loadScript = function(script, successfulCB, failCB) {
     var request;
-    if (typeof XMLHttpRequest === 'function'){
+    if (window.XMLHttpRequest){
         request = new XMLHttpRequest();
     } else {
         try {
