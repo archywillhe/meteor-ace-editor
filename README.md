@@ -2,6 +2,8 @@
 
 A simple package that asynchronously loads <a href="http://ace.c9.io/">Ace editor</a> to a Meteor app only when it is needed.
 
+> Note: this package is just a "wrapper" around the actual ace editor, asynchronously loading the ace script with XMLHttpRequest when `AceEditor.instance` is called for the first time.
+
 #QuickStart
 Add it to your Meteor project
 ```bash
@@ -15,9 +17,8 @@ var ace = AceEditor.instance("archy",{
     mode:"html"
 });
 ```
-
-(Calling `AceEditor.instance()` multiple times would not load the Ace script more than one time. It only loads the script the first time you call it.)
-
+> caling `AceEditor.instance("dom")` is basically the same as calling <a href="http://ace.c9.io/#nav=howto"> `ace.edit('dom')` in the Ace API</a>. The only difference is that `AceEditor.instance("dom")` would load the script the first time you call it.
+ 
 
 #More on working with Ace Editor in Meteor
 Using a callback:
@@ -47,5 +48,6 @@ To learn more about Ace Editor, you can read <a href="http://ace.c9.io/#nav=howt
 #License
 
 "THE BEER-WARE LICENSE" (Revision 42):
+
 
 As long as you retain this notice you can do whatever you want with this stuff. If we meet some day, and you think this stuff is worth it, you can buy me a beer in return
