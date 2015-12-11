@@ -1,10 +1,10 @@
-#Meteor Ace Editor 
+## Meteor Ace Editor ##
 
 A simple package that asynchronously loads <a href="http://ace.c9.io/">Ace editor</a> to a Meteor app only when it is needed.
 
 > Note: this package is just a "wrapper" around the actual ace editor, asynchronously loading the ace script with XMLHttpRequest when `AceEditor.instance` is called for the first time.
 
-#QuickStart
+## QuickStart ##
 Add it to your Meteor project
 ```bash
 meteor add arch:ace-editor
@@ -13,14 +13,14 @@ meteor add arch:ace-editor
 Let's say you have a `<pre id='archy'></pre>`, and now you want to embed Ace and turn the DOM element into an Ace editor, this is all you need to do:
 ```javascript
 var ace = AceEditor.instance("archy",{
-    theme:"dawn", 
+    theme:"dawn",
     mode:"html"
 });
 ```
 > caling `AceEditor.instance("dom")` is basically the same as calling <a href="http://ace.c9.io/#nav=howto"> `ace.edit('dom')` in the Ace API</a>. The only difference is that `AceEditor.instance("dom")` would load the script the first time you call it.
- 
 
-#More on working with Ace Editor in Meteor
+
+## More on working with Ace Editor in Meteor ##
 Using a callback:
 ```javascript
 AceEditor.instance("archy",null,function(editor){
@@ -41,11 +41,15 @@ Tracker.autorun(function (e) {
 });
 ```
 
-`.autorun` is necessary only when the Ace script has not been loaded. 
+`.autorun` is necessary only when the Ace script has not been loaded.
 
 To learn more about Ace Editor, you can read <a href="http://ace.c9.io/#nav=howto">the how-to guide</a> on their website.
 
-#License
+## on using UndoManager, VirtualRenderer, etc ##
+
+Since Ace is still accessible at `window.ace`, to create an instance of the UndoManager, `new window.ace.UndoManager` would do. The same goes to other things described in the api.
+
+## License ##
 
 "THE BEER-WARE LICENSE" (Revision 42):
 
