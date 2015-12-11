@@ -1,8 +1,8 @@
-Tinytest.add('load ace', function (test) {  
+Tinytest.add('load ace', function (test) {
     var ace = AceEditor.instance();
     test.equal(ace, "loading ace");
 });
-Tinytest.add('wait ace to be loaded', function (test) {  
+Tinytest.add('wait ace to be loaded', function (test) {
     var ace = AceEditor.instance();
     test.equal(ace, "ace is being loaded");
 });
@@ -25,7 +25,7 @@ Tinytest.addAsync('ace is loaded', function (test, completed) {
 });
 
 Tinytest.addAsync('testTracker', function (test,completed) {
-    AceEditor.unloadInstance();  
+    AceEditor.unloadInstance();
     $("body").append("<pre id='editor' style='display:none'/>");
     Tracker.autorun(function (e) {
        var editor = AceEditor.instance("editor");

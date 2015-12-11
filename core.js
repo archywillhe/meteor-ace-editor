@@ -15,7 +15,7 @@ var loadScript = function(script, successfulCB, failCB) {
             try {
                 (function( code ) {
                     window.eval.call( window, code );
-                })( request.response );
+                })( request.response);
             } catch(e) {
                 console.log(script +" is loaded but can't be eval(), man!");
             } finally{
@@ -60,7 +60,7 @@ AceEditor = (function() {
             callback = function(){
                  //makes the actual callback using name, setting and cb
                 if(name!==undefined){
-                    try{ 
+                    try{
                         instance = ace.edit(name);
                     }catch (e) {
                          console.log("#"+name+" can't be found for ace-editor");
@@ -72,7 +72,7 @@ AceEditor = (function() {
             if (instance_initialized === undefined) {
                 loadScript(acePath+"ace.js",
                 function(){
-                    var ace = window.ace
+                    var ace = window.ace;
                     ace.config.set("modePath", acePath);
                     ace.config.set("themePath", acePath);
                     ace.config.set("workerPath", acePath);
